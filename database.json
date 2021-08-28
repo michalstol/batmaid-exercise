@@ -1,0 +1,116 @@
+{
+    "jobs-data": {
+        "jobs": [
+            {
+                "uuid": "c1ac51df-40bb-4ed5-b4eb-068ebd8d9bbf",
+                "amount": 96,
+                "currency": "CHF",
+                "executionDate": "2021-10-13 11:00",
+                "agent": "Oliveira Agent",
+                "contractPeriodicity": 7,
+                "floorAndDoor": "",
+                "locationComment": "foo bar",
+                "type": "HOME_CLEANING",
+                "duration": 3,
+                "location": "Fooweg 8",
+                "locationUuid": "9316889e-17ef-4ef6-a5e3-d487ed589d2d"
+            },
+            {
+                "uuid": "b030878f-de83-4c49-a297-bb3540349579",
+                "amount": 96,
+                "currency": "CHF",
+                "executionDate": "2021-10-27 08:30",
+                "agent": "Oliveira Agent",
+                "contractPeriodicity": 14,
+                "floorAndDoor": "",
+                "locationComment": "foo bar",
+                "type": "HOME_CLEANING",
+                "duration": 3,
+                "location": "Fooweg 8",
+                "locationUuid": "9316889e-17ef-4ef6-a5e3-d487ed589d2d"
+            },
+            {
+                "uuid": "tc30548f-fe83-3c47-bb97-dd3540349565",
+                "amount": 96,
+                "currency": "CHF",
+                "executionDate": "2021-10-28 08:30",
+                "agent": "Oliveira Agent",
+                "contractPeriodicity": 14,
+                "floorAndDoor": "",
+                "locationComment": "foo bar",
+                "type": "END_OF_TENANCY",
+                "duration": 3,
+                "location": "Fooweg 8",
+                "locationUuid": "9316889e-17ef-4ef6-a5e3-d487ed589d2d"
+            },
+            {
+                "uuid": "d1515366-057b-11ec-a078-024249a407e3",
+                "amount": 64,
+                "currency": "CHF",
+                "executionDate": "2021-05-27 09:30",
+                "agent": "Monica Agent",
+                "contractPeriodicity": 14,
+                "floorAndDoor": "",
+                "locationComment": "foo bar",
+                "type": "HOME_CLEANING",
+                "duration": 2,
+                "location": "Fooweg 8",
+                "locationUuid": "9316889e-17ef-4ef6-a5e3-d487ed589d2d"
+            },
+            {
+                "uuid": "69625669-7033-4c55-956c-59ced45dbe59",
+                "amount": 64,
+                "currency": "CHF",
+                "executionDate": "2021-09-20 08:30",
+                "agent": "Jessica Agent",
+                "contractPeriodicity": 14,
+                "floorAndDoor": "",
+                "locationComment": "",
+                "type": "HOME_CLEANING",
+                "duration": 2,
+                "location": "Foobar 9",
+                "locationUuid": "f97baa38-d427-43c2-b09e-f740230050ee"
+            },
+            {
+                "uuid": "5372cb01-88d4-4489-8fdd-93a80e25e8ba",
+                "amount": 64,
+                "currency": "CHF",
+                "executionDate": "2021-09-23 10:00",
+                "agent": "Jessica Agent",
+                "contractPeriodicity": 28,
+                "floorAndDoor": "",
+                "locationComment": "",
+                "type": "HOME_CLEANING",
+                "duration": 2,
+                "location": "Foobar 9",
+                "locationUuid": "f97baa38-d427-43c2-b09e-f740230050ee"
+            }
+        ],
+        "jobsByLocation": [
+            {
+                "location": "Fooweg 8",
+                "total": 4,
+                "jobs": [
+                    "c1ac51df-40bb-4ed5-b4eb-068ebd8d9bbf",
+                    "b030878f-de83-4c49-a297-bb3540349579",
+                    "d1515366-057b-11ec-a078-024249a407e3",
+                    "tc30548f-fe83-3c47-bb97-dd3540349565"
+                ],
+                "uuid": "9316889e-17ef-4ef6-a5e3-d487ed589d2d",
+                "state": "ZH",
+                "city": "Zurich"
+            },
+            {
+                "location": "Foobar 9",
+                "total": 2,
+                "jobs": [
+                    "69625669-7033-4c55-956c-59ced45dbe59",
+                    "5372cb01-88d4-4489-8fdd-93a80e25e8ba"
+                ],
+                "uuid": "f97baa38-d427-43c2-b09e-f740230050ee",
+                "state": "ZH",
+                "city": "Zurich"
+            }
+        ]
+    }
+}
