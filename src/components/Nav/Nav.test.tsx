@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import Nav, { testId } from '.';
+import Nav, { testId } from './Nav';
 
 test('component -- Nav', () => {
     const content = 'Test content';

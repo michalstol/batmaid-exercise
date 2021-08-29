@@ -1,9 +1,11 @@
 @import '../../node_modules/normalize.css';
 
 $color-white: #fff;
+$color-gray: #ddd;
 $color-gray--bright: #f2f3f5;
 $color-gray--dark: #111;
 $color-blue: #1fa7d1;
+$color-red: #b30303;
 
 $transition: 300ms ease-in-out;
 
@@ -85,22 +87,27 @@ button {
 }
 
 .cleanings {
+    $spacing: 15px;
+
+    // simple adding scrollbar when content is too wide
     width: 100%;
     overflow: hidden;
     overflow-x: auto;
 
     &__table {
-        $spacing: 15px;
-
         width: 100%;
-        margin: 0 (-$spacing);
         text-align: left;
 
         th,
         td {
             white-space: nowrap;
 
+            &:first-child {
+                padding-left: 0;
+            }
+
             &:last-child {
+                padding-right: 0;
                 text-align: right;
             }
         }
@@ -136,4 +143,80 @@ button {
             }
         }
     }
+
+    // Skeleton's styles
+    &.skeleton {
+        th,
+        td {
+            position: relative;
+            color: transparent;
+            pointer-events: none;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgb(255, 255, 255);
+                background: linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.8) 50%,
+                    rgba(255, 255, 255, 0) 100%
+                );
+                background-size: 60px 500px;
+                background-position: -30% 0;
+                background-repeat: no-repeat;
+                animation: skeletonCycling infinite 1000ms;
+                z-index: 3;
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                left: $spacing;
+                right: $spacing;
+                height: 1em;
+                background-color: $color-gray;
+                z-index: 2;
+            }
+
+            &:first-child {
+                &::after {
+                    left: 0;
+                }
+            }
+
+            &:last-child {
+                &::after {
+                    right: 0;
+                }
+            }
+        }
+
+        th {
+            &::after {
+                top: 0;
+            }
+        }
+
+        td {
+            &::after {
+                top: calc(50% - 1em / 2);
+            }
+        }
+
+        @keyframes skeletonCycling {
+            100% {
+                background-position: 150% 0;
+            }
+        }
+    }
+}
+
+.error-fallback {
+    font-weight: 700;
+    color: $color-red;
 }

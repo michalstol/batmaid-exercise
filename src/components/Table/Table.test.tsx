@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import Table, { testId } from '.';
+import Table, { testId } from './Table';
 
 test('component -- Table', () => {
     render(

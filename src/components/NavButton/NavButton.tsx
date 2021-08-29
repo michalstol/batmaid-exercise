@@ -16,7 +16,7 @@ export default function NavButton({
     return (
         <li className="nav__el">
             <button
-                className={`nav-button ${isActive ? 'active' : ''}`}
+                className={['nav-button', isActive ? 'active' : ''].join(' ')}
                 onClick={changeView}
                 data-testid={testId}
             >

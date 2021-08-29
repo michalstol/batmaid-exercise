@@ -79,8 +79,8 @@ function transformJobs(jobs: APISingleJob[]): SingleJobData[] {
 
 function filterJobsByDate(jobs: SingleJobData[]): JobsSplitedByDate {
     return {
-        upcomingJobs: jobs.filter(({ timestamp }) => timestamp > currentDate),
-        previousJobs: jobs.filter(({ timestamp }) => timestamp < currentDate),
+        upcoming: jobs.filter(({ timestamp }) => timestamp > currentDate),
+        previous: jobs.filter(({ timestamp }) => timestamp < currentDate),
     };
 }
 
@@ -95,13 +95,13 @@ function transformSingleLocation(
     { location, uuid }: APISingleLocation,
     jobs: SingleJobData[]
 ): JobsByLocationData {
-    const { upcomingJobs, previousJobs } = filterJobsByDate(jobs);
+    const { upcoming, previous } = filterJobsByDate(jobs);
 
     return {
         uuid,
         location,
-        upcomingJobs,
-        previousJobs,
+        upcoming,
+        previous,
     };
 }
 

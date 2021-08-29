@@ -46,8 +46,8 @@ export interface SingleJobData {
 }
 
 export interface JobsSplitedByDate {
-    upcomingJobs: SingleJobData[];
-    previousJobs: SingleJobData[];
+    upcoming: SingleJobData[];
+    previous: SingleJobData[];
 }
 
 export interface JobsByLocationData extends JobsSplitedByDate {

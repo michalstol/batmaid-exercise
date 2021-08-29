@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import TableRecord, { testId } from '.';
+import TableRecord, { testId } from './TableRecord';
 
 test('component -- TableRecord', () => {
     render(

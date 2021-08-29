@@ -5,7 +5,8 @@ import './styles/app.scss';
 import { useAppSelector, useAppDispatch } from './app/hooks';
 import { fetchJobs, selectJobsStatus } from './api/jobsSlice';
 
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/Dashboard/Dashboard';
+import Error from './components/Error/Error';
 
 function App() {
     const jobsStatus = useAppSelector(selectJobsStatus);
@@ -23,9 +24,9 @@ function App() {
                     <h1 className="title">All my cleanings</h1>
                 </header>
 
-                {jobsStatus === 'success' && <Dashboard />}
-                {jobsStatus === 'loading' && <>loading</>}
-                {jobsStatus === 'failed' && <>error</>}
+                {/* Depends on the jobsStatus variable render a different component */}
+                {jobsStatus !== 'failed' && <Dashboard />}
+                {jobsStatus === 'failed' && <Error />}
             </div>
         </div>
     );

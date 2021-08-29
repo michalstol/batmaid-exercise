@@ -1,16 +1,21 @@
 import React from 'react';
 
 interface TableInterface {
+    isLoading?: boolean;
     children: React.ReactNode;
 }
 
 export const testId = 'table';
 
 export default function Table({
+    isLoading,
     children,
 }: TableInterface): React.ReactElement {
     return (
-        <main className="cleanings" data-testid={testId}>
+        <main
+            className={['cleanings', isLoading ? 'skeleton' : ''].join(' ')}
+            data-testid={testId}
+        >
             <table className="cleanings__table">
                 <thead className="cleanings__head">
                     <tr>
