@@ -89,7 +89,7 @@ button {
 .cleanings {
     $spacing: 15px;
 
-    // simple adding scrollbar when content is too wide
+    // a simple workaround for a table on mobile resolutions
     width: 100%;
     overflow: hidden;
     overflow-x: auto;

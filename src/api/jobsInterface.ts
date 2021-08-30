@@ -45,12 +45,13 @@ export interface SingleJobData {
     locationUuid: string;
 }
 
-export interface JobsSplitedByDate {
-    upcoming: SingleJobData[];
-    previous: SingleJobData[];
-}
-
-export interface JobsByLocationData extends JobsSplitedByDate {
+export interface JobsByLocationData {
     uuid: string;
     location: string;
+    jobs: SingleJobData[] | null;
+}
+
+export interface JobsSplitedByDate {
+    upcoming: JobsByLocationData[];
+    previous: JobsByLocationData[];
 }

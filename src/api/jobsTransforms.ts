@@ -37,7 +37,7 @@ function createDateLabel(date: Date): string {
     return `${day}, ${month} ${date.getDate()}`;
 }
 
-function createTimeRange(date: Date, duration: number): string {
+export function createTimeRange(date: Date, duration: number): string {
     const dateHours = date.getHours();
     const dateMinutes = date.getMinutes() || '00';
 
@@ -46,7 +46,7 @@ function createTimeRange(date: Date, duration: number): string {
     }:${dateMinutes}`;
 }
 
-function transformSingleJob({
+export function transformSingleJob({
     uuid,
     type,
     agent,
@@ -77,37 +77,29 @@ function transformJobs(jobs: APISingleJob[]): SingleJobData[] {
     return jobs.map(transformSingleJob).sort(sortSingleJobs);
 }
 
-function filterJobsByDate(jobs: SingleJobData[]): JobsSplitedByDate {
-    return {
-        upcoming: jobs.filter(({ timestamp }) => timestamp > currentDate),
-        previous: jobs.filter(({ timestamp }) => timestamp < currentDate),
-    };
+function filterJobsByDate(compareFunct: (x: number, y: number) => boolean) {
+    return ({ timestamp }: SingleJobData) =>
+        compareFunct(timestamp, currentDate);
 }
 
-function filterJobsByLocation(
-    jobs: SingleJobData[],
-    uuid: string
-): SingleJobData[] {
-    return jobs.filter(({ locationUuid }) => locationUuid === uuid);
+function filterJobsByLocation(uuid: string) {
+    return ({ locationUuid }: SingleJobData) => locationUuid === uuid;
 }
 
-function transformSingleLocation(
-    { location, uuid }: APISingleLocation,
-    jobs: SingleJobData[]
-): JobsByLocationData {
-    const { upcoming, previous } = filterJobsByDate(jobs);
-
+function transformSingleLocation({
+    location,
+    uuid,
+}: APISingleLocation): JobsByLocationData {
     return {
         uuid,
         location,
-        upcoming,
-        previous,
+        jobs: null,
     };
 }
 
 function sortLocations(
-    { location: aName }: JobsByLocationData,
-    { location: bName }: JobsByLocationData
+    { location: aName }: APISingleLocation,
+    { location: bName }: APISingleLocation
 ): number {
     return aName.toLowerCase().localeCompare(bName.toLowerCase());
 }
@@ -115,24 +107,41 @@ function sortLocations(
 function transformLocations(
     locations: APISingleLocation[],
     jobs: SingleJobData[]
-): JobsByLocationData[] {
-    const results: JobsByLocationData[] = [];
+): JobsSplitedByDate {
+    const sortedLocations = [...locations].sort(sortLocations);
+    const results: JobsSplitedByDate = {
+        upcoming: [],
+        previous: [],
+    };
 
-    locations.forEach(location =>
-        results.push(
-            transformSingleLocation(
-                location,
-                filterJobsByLocation(jobs, location.uuid)
-            )
-        )
-    );
+    sortedLocations.forEach(location => {
+        const filteredJobs = jobs.filter(filterJobsByLocation(location.uuid));
+        const upcomingJobs = filteredJobs.filter(
+            filterJobsByDate((x, y) => x > y)
+        );
+        const previousJobs = filteredJobs.filter(
+            filterJobsByDate((x, y) => x < y)
+        );
 
-    return results.sort(sortLocations);
+        if (upcomingJobs.length) {
+            results.upcoming.push({
+                ...transformSingleLocation(location),
+                jobs: [...upcomingJobs],
+            });
+        }
+
+        if (previousJobs.length) {
+            results.previous.push({
+                ...transformSingleLocation(location),
+                jobs: [...previousJobs],
+            });
+        }
+    });
+
+    return results;
 }
 
-export default function tranformResponse(
-    data: APIResponse
-): JobsByLocationData[] {
+export default function tranformResponse(data: APIResponse): JobsSplitedByDate {
     const transformedJobs = transformJobs(data.jobs);
     const results = transformLocations(data.jobsByLocation, transformedJobs);
 

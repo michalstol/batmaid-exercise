@@ -6,16 +6,19 @@ import tranformResponse from '../api/jobsTransforms';
 
 interface JobsState {
     status: 'idle' | 'loading' | 'success' | 'failed';
-    data: JobsByLocationData[] | null;
+    upcoming: JobsByLocationData[] | null;
+    previous: JobsByLocationData[] | null;
 }
 
-const initialState: JobsState = {
+export const initialState: JobsState = {
     status: 'idle',
-    data: null,
+    upcoming: null,
+    previous: null,
 };
 
 export const fetchJobs = createAsyncThunk('jobs/fetchData', async () => {
     // Get data from fake API
+    // API works only when the "database" script is running
     const respons = await fetch('http://localhost:3001/jobs-data')
         .then(res => res.json())
         .then(data => tranformResponse(data));
@@ -34,7 +37,8 @@ export const jobsSlice = createSlice({
             })
             .addCase(fetchJobs.fulfilled, (state, action) => {
                 state.status = 'success';
-                state.data = action.payload;
+                state.upcoming = action.payload.upcoming;
+                state.previous = action.payload.previous;
             })
             .addCase(fetchJobs.rejected, state => {
                 state.status = 'failed';
@@ -43,6 +47,10 @@ export const jobsSlice = createSlice({
 });
 
 export const selectJobsStatus = (state: RootState) => state.jobs.status;
-export const selectJobsData = (state: RootState) => state.jobs.data;
+export const selectJobsData = (state: RootState) => {
+    const { upcoming, previous } = state.jobs;
+
+    return { upcoming, previous };
+};
 
 export default jobsSlice.reducer;

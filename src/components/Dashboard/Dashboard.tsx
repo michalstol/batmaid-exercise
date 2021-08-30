@@ -8,14 +8,15 @@ import NavButton from '../NavButton/NavButton';
 import Table from '../Table/Table';
 import TableGroup from '../TableGroup/TableGroup';
 import TableRecord from '../TableRecord/TableRecord';
-import SkeletonTableRecord from '../TableRecord/SkeletonTableRecord';
 
 export default function Dashboard(): React.ReactElement {
     const jobsStatus = useAppSelector(selectJobsStatus);
     const jobsData = useAppSelector(selectJobsData);
     const memoizedLoadingCheck = useCallback(
-        () => jobsStatus === 'loading',
-        [jobsStatus]
+        () =>
+            jobsStatus === 'loading' ||
+            (jobsData.upcoming === null && jobsStatus === 'idle'),
+        [jobsStatus, jobsData]
     );
     const [view, setView] = useState<'previous' | 'upcoming'>('upcoming');
     const [isLoading, setIsLoading] = useState(memoizedLoadingCheck());
@@ -42,58 +43,36 @@ export default function Dashboard(): React.ReactElement {
             </Nav>
 
             <Table isLoading={isLoading}>
-                {/* Skeleton loading */}
-                {isLoading && (
-                    <>
-                        <TableGroup>
-                            <SkeletonTableRecord />
-                            <SkeletonTableRecord />
-                        </TableGroup>
-                        <TableGroup>
-                            <SkeletonTableRecord />
-                            <SkeletonTableRecord />
-                        </TableGroup>
-                    </>
-                )}
-
                 {/* Generating cleaning records */}
-                {!isLoading &&
-                    jobsData?.map(singleLocation => (
-                        <TableGroup key={singleLocation.uuid}>
-                            {singleLocation[view]?.map(
-                                (
-                                    {
-                                        uuid,
-                                        type,
-                                        date,
-                                        hours,
-                                        repetition,
-                                        agent,
-                                    },
-                                    index
-                                ) => (
-                                    <TableRecord
-                                        key={uuid}
-                                        address={
-                                            index === 0
-                                                ? singleLocation.location
-                                                : undefined
-                                        }
-                                        type={type}
-                                        dateAndTime={
-                                            <>
-                                                {date}
-                                                <br />
-                                                {hours}
-                                            </>
-                                        }
-                                        repetition={repetition}
-                                        agent={agent}
-                                    />
-                                )
-                            )}
-                        </TableGroup>
-                    ))}
+                {jobsData[view]?.map(singleLocation => (
+                    <TableGroup key={singleLocation.uuid}>
+                        {singleLocation.jobs?.map(
+                            (
+                                { uuid, type, date, hours, repetition, agent },
+                                index
+                            ) => (
+                                <TableRecord
+                                    key={uuid}
+                                    address={
+                                        index === 0
+                                            ? singleLocation.location
+                                            : undefined
+                                    }
+                                    type={type}
+                                    dateAndTime={
+                                        <>
+                                            {date}
+                                            <br />
+                                            {hours}
+                                        </>
+                                    }
+                                    repetition={repetition}
+                                    agent={agent}
+                                />
+                            )
+                        )}
+                    </TableGroup>
+                ))}
             </Table>
         </>
     );

@@ -1,5 +1,8 @@
 import React from 'react';
 
+import TableGroup from '../TableGroup/TableGroup';
+import SkeletonTableRecord from '../TableRecord/SkeletonTableRecord';
+
 interface TableInterface {
     isLoading?: boolean;
     children: React.ReactNode;
@@ -27,7 +30,20 @@ export default function Table({
                     </tr>
                 </thead>
 
-                {children}
+                {/* Skeleton loading */}
+                {isLoading && (
+                    <>
+                        <TableGroup>
+                            <SkeletonTableRecord />
+                            <SkeletonTableRecord />
+                        </TableGroup>
+                        <TableGroup>
+                            <SkeletonTableRecord />
+                            <SkeletonTableRecord />
+                        </TableGroup>
+                    </>
+                )}
+                {!isLoading && children}
             </table>
         </main>
     );
