@@ -78,6 +78,10 @@ button {
         transition: color $transition, background-color $transition;
         display: inline-block;
 
+        &:hover {
+            background-color: rgba($color-blue, 0.1);
+        }
+
         &.active {
             color: $color-white;
             background-color: $color-blue;
