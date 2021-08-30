@@ -6,7 +6,7 @@ interface NavInterface {
 
 export const testId = 'nav';
 
-export default function Nav({ children }: NavInterface): React.ReactElement {
+export default function Nav({ children }: NavInterface): JSX.Element {
     return (
         <nav className="nav" data-testid={testId}>
             <ul className="nav__list">{children}</ul>

@@ -4,7 +4,7 @@ import { RepetitionType } from '../../api/jobsInterface';
 interface TableRecordInterface {
     address?: string;
     type: string;
-    dateAndTime: React.ReactNode;
+    dateAndTime: JSX.Element;
     repetition: RepetitionType;
     agent: string;
 }
@@ -17,7 +17,7 @@ export default function TableRecord({
     dateAndTime,
     repetition,
     agent,
-}: TableRecordInterface): React.ReactElement {
+}: TableRecordInterface): JSX.Element {
     return (
         <tr data-testid={testId}>
             <td>{address}</td>

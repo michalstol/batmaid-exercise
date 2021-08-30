@@ -12,7 +12,7 @@ export default function NavButton({
     isActive,
     changeView,
     children,
-}: NavButtonInterface): React.ReactElement {
+}: NavButtonInterface): JSX.Element {
     return (
         <li className="nav__el">
             <button

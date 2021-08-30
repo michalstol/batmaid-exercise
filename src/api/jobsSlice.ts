@@ -33,6 +33,8 @@ export const jobsSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(fetchJobs.pending, state => {
+                // The prop "state" is not overwritten,
+                // because Immer make it immutable
                 state.status = 'loading';
             })
             .addCase(fetchJobs.fulfilled, (state, action) => {

@@ -9,7 +9,7 @@ import Table from '../Table/Table';
 import TableGroup from '../TableGroup/TableGroup';
 import TableRecord from '../TableRecord/TableRecord';
 
-export default function Dashboard(): React.ReactElement {
+export default function Dashboard(): JSX.Element {
     const jobsStatus = useAppSelector(selectJobsStatus);
     const jobsData = useAppSelector(selectJobsData);
     const memoizedLoadingCheck = useCallback(

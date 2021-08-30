@@ -8,7 +8,7 @@ export const testId = 'table-group';
 
 export default function TableGroup({
     children,
-}: TableGroupInterface): React.ReactElement {
+}: TableGroupInterface): JSX.Element {
     return (
         <tbody className="cleanings__group" data-testid={testId}>
             {children}

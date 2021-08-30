@@ -1,7 +1,5 @@
 import React from 'react';
-
-import TableGroup from '../TableGroup/TableGroup';
-import SkeletonTableRecord from '../TableRecord/SkeletonTableRecord';
+import SkeletonLoader from '../SkeletonLoader/SkeletonLoader';
 
 interface TableInterface {
     isLoading?: boolean;
@@ -13,7 +11,7 @@ export const testId = 'table';
 export default function Table({
     isLoading,
     children,
-}: TableInterface): React.ReactElement {
+}: TableInterface): JSX.Element {
     return (
         <main
             className={['cleanings', isLoading ? 'skeleton' : ''].join(' ')}
@@ -30,20 +28,7 @@ export default function Table({
                     </tr>
                 </thead>
 
-                {/* Skeleton loading */}
-                {isLoading && (
-                    <>
-                        <TableGroup>
-                            <SkeletonTableRecord />
-                            <SkeletonTableRecord />
-                        </TableGroup>
-                        <TableGroup>
-                            <SkeletonTableRecord />
-                            <SkeletonTableRecord />
-                        </TableGroup>
-                    </>
-                )}
-                {!isLoading && children}
+                {isLoading ? <SkeletonLoader /> : children}
             </table>
         </main>
     );
