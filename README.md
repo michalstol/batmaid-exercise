@@ -1,6 +1,6 @@
 # Batmaid exercise
 
-It is a recruitment exercise for Batmaid company.
+It is a recruitment exercise for Batmaid company. It is created based on CLI create-react-app with redux && typescript template.
 
 ## Launch application
 
