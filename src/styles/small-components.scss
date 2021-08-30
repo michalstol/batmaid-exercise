@@ -1,0 +1,25 @@
+.header {
+    margin-bottom: 18px;
+}
+
+.title {
+    margin: 0;
+    font-size: 20px;
+}
+
+.dashboard {
+    $gap: 30px;
+
+    max-width: 1200px;
+    width: 100%;
+    margin: $gap auto;
+
+    &__container {
+        padding: 0 $gap;
+    }
+}
+
+.error-fallback {
+    font-weight: 700;
+    color: $color-red;
+}

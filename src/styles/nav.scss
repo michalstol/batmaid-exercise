@@ -1,0 +1,43 @@
+.nav {
+    margin: 30px 0 40px;
+    display: flex;
+
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border: 1px solid $color-blue;
+        border-radius: 5px;
+        display: flex;
+        overflow: hidden;
+
+        @media (max-width: 768px) {
+            flex: 1 1 auto;
+        }
+    }
+
+    &__el {
+        flex: 1 1 auto;
+    }
+
+    &-button {
+        width: 100%;
+        padding: 12px 20px;
+        font-weight: 700;
+        color: $color-blue;
+        border: none;
+        background-color: inherit;
+        transition: color $transition, background-color $transition;
+        display: inline-block;
+
+        &:hover {
+            background-color: rgba($color-blue, 0.1);
+        }
+
+        &.active {
+            color: $color-white;
+            background-color: $color-blue;
+            pointer-events: none;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+html,
+body {
+    box-sizing: border-box;
+    background-color: $color-white;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: $color-gray--dark;
+}
+
+button {
+    cursor: pointer;
+}
